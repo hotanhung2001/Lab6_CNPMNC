@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Demo_Lab5Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="HISTORY">
+    <Key>
+      <PropertyRef Name="History_ID" />
+    </Key>
+    <Property Name="History_ID" Type="int" Nullable="false" />
+    <Property Name="IDTV" Type="int" />
+    <Property Name="HovaTen" Type="varchar" MaxLength="50" />
+    <Property Name="NgaySinh" Type="date" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+    <Property Name="gender" Type="varchar" MaxLength="6" />
+    <Property Name="NgayThamGia" Type="date" />
+    <Property Name="SDT" Type="varchar" MaxLength="10" />
+    <Property Name="DeleteFlag" Type="int" />
+    <Property Name="DeleteTime" Type="time" Precision="7" />
+  </EntityType>
+  <EntityType Name="THANHVIEN">
+    <Key>
+      <PropertyRef Name="IDTV" />
+    </Key>
+    <Property Name="IDTV" Type="int" Nullable="false" />
+    <Property Name="HovaTen" Type="varchar" MaxLength="50" />
+    <Property Name="NgaySinh" Type="date" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+    <Property Name="gender" Type="varchar" MaxLength="6" />
+    <Property Name="NgayThamGia" Type="date" />
+    <Property Name="SDT" Type="varchar" MaxLength="13" />
+  </EntityType>
+  <EntityType Name="YEUTHICH">
+    <Key>
+      <PropertyRef Name="IDYT" />
+    </Key>
+    <Property Name="IDYT" Type="int" Nullable="false" />
+    <Property Name="IDTV" Type="int" />
+  </EntityType>
+  <Association Name="fk_YEUTHICH_THANHVIEN">
+    <End Role="THANHVIEN" Type="Self.THANHVIEN" Multiplicity="1" />
+    <End Role="YEUTHICH" Type="Self.YEUTHICH" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="THANHVIEN">
+        <PropertyRef Name="IDTV" />
+      </Principal>
+      <Dependent Role="YEUTHICH">
+        <PropertyRef Name="IDYT" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Demo_Lab5ModelStoreContainer">
+    <EntitySet Name="HISTORY" EntityType="Self.HISTORY" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="THANHVIEN" EntityType="Self.THANHVIEN" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="YEUTHICH" EntityType="Self.YEUTHICH" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="fk_YEUTHICH_THANHVIEN" Association="Self.fk_YEUTHICH_THANHVIEN">
+      <End Role="THANHVIEN" EntitySet="THANHVIEN" />
+      <End Role="YEUTHICH" EntitySet="YEUTHICH" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

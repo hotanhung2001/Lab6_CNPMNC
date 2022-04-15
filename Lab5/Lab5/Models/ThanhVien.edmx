@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Demo_Lab5Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="HISTORY">
+          <Key>
+            <PropertyRef Name="History_ID" />
+          </Key>
+          <Property Name="History_ID" Type="int" Nullable="false" />
+          <Property Name="IDTV" Type="int" />
+          <Property Name="HovaTen" Type="varchar" MaxLength="50" />
+          <Property Name="NgaySinh" Type="date" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="gender" Type="varchar" MaxLength="6" />
+          <Property Name="NgayThamGia" Type="date" />
+          <Property Name="SDT" Type="varchar" MaxLength="10" />
+          <Property Name="DeleteFlag" Type="int" />
+          <Property Name="DeleteTime" Type="time" Precision="7" />
+        </EntityType>
+        <EntityType Name="THANHVIEN">
+          <Key>
+            <PropertyRef Name="IDTV" />
+          </Key>
+          <Property Name="IDTV" Type="int" Nullable="false" />
+          <Property Name="HovaTen" Type="varchar" MaxLength="50" />
+          <Property Name="NgaySinh" Type="date" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="gender" Type="varchar" MaxLength="6" />
+          <Property Name="NgayThamGia" Type="date" />
+          <Property Name="SDT" Type="varchar" MaxLength="13" />
+        </EntityType>
+        <EntityType Name="YEUTHICH">
+          <Key>
+            <PropertyRef Name="IDYT" />
+          </Key>
+          <Property Name="IDYT" Type="int" Nullable="false" />
+          <Property Name="IDTV" Type="int" />
+        </EntityType>
+        <Association Name="fk_YEUTHICH_THANHVIEN">
+          <End Role="THANHVIEN" Type="Self.THANHVIEN" Multiplicity="1" />
+          <End Role="YEUTHICH" Type="Self.YEUTHICH" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="THANHVIEN">
+              <PropertyRef Name="IDTV" />
+            </Principal>
+            <Dependent Role="YEUTHICH">
+              <PropertyRef Name="IDYT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Demo_Lab5ModelStoreContainer">
+          <EntitySet Name="HISTORY" EntityType="Self.HISTORY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="THANHVIEN" EntityType="Self.THANHVIEN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="YEUTHICH" EntityType="Self.YEUTHICH" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_YEUTHICH_THANHVIEN" Association="Self.fk_YEUTHICH_THANHVIEN">
+            <End Role="THANHVIEN" EntitySet="THANHVIEN" />
+            <End Role="YEUTHICH" EntitySet="YEUTHICH" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Demo_Lab5Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="HISTORY">
+          <Key>
+            <PropertyRef Name="History_ID" />
+          </Key>
+          <Property Name="History_ID" Type="Int32" Nullable="false" />
+          <Property Name="IDTV" Type="Int32" />
+          <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NgaySinh" Type="DateTime" Precision="0" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="gender" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="NgayThamGia" Type="DateTime" Precision="0" />
+          <Property Name="SDT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DeleteFlag" Type="Int32" />
+          <Property Name="DeleteTime" Type="Time" Precision="7" />
+        </EntityType>
+        <EntityType Name="THANHVIEN">
+          <Key>
+            <PropertyRef Name="IDTV" />
+          </Key>
+          <Property Name="IDTV" Type="Int32" Nullable="false" />
+          <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NgaySinh" Type="DateTime" Precision="0" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="gender" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="NgayThamGia" Type="DateTime" Precision="0" />
+          <Property Name="SDT" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="YEUTHICH" Relationship="Self.fk_YEUTHICH_THANHVIEN" FromRole="THANHVIEN" ToRole="YEUTHICH" />
+        </EntityType>
+        <EntityType Name="YEUTHICH">
+          <Key>
+            <PropertyRef Name="IDYT" />
+          </Key>
+          <Property Name="IDYT" Type="Int32" Nullable="false" />
+          <Property Name="IDTV" Type="Int32" />
+          <NavigationProperty Name="THANHVIEN" Relationship="Self.fk_YEUTHICH_THANHVIEN" FromRole="YEUTHICH" ToRole="THANHVIEN" />
+        </EntityType>
+        <Association Name="fk_YEUTHICH_THANHVIEN">
+          <End Role="THANHVIEN" Type="Self.THANHVIEN" Multiplicity="1" />
+          <End Role="YEUTHICH" Type="Self.YEUTHICH" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="THANHVIEN">
+              <PropertyRef Name="IDTV" />
+            </Principal>
+            <Dependent Role="YEUTHICH">
+              <PropertyRef Name="IDYT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Demo_Lab5Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="HISTORies" EntityType="Self.HISTORY" />
+          <EntitySet Name="THANHVIENs" EntityType="Self.THANHVIEN" />
+          <EntitySet Name="YEUTHICHes" EntityType="Self.YEUTHICH" />
+          <AssociationSet Name="fk_YEUTHICH_THANHVIEN" Association="Self.fk_YEUTHICH_THANHVIEN">
+            <End Role="THANHVIEN" EntitySet="THANHVIENs" />
+            <End Role="YEUTHICH" EntitySet="YEUTHICHes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Demo_Lab5ModelStoreContainer" CdmEntityContainer="Demo_Lab5Entities">
+          <EntitySetMapping Name="HISTORies">
+            <EntityTypeMapping TypeName="Demo_Lab5Model.HISTORY">
+              <MappingFragment StoreEntitySet="HISTORY">
+                <ScalarProperty Name="History_ID" ColumnName="History_ID" />
+                <ScalarProperty Name="IDTV" ColumnName="IDTV" />
+                <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="NgayThamGia" ColumnName="NgayThamGia" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="DeleteFlag" ColumnName="DeleteFlag" />
+                <ScalarProperty Name="DeleteTime" ColumnName="DeleteTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="THANHVIENs">
+            <EntityTypeMapping TypeName="Demo_Lab5Model.THANHVIEN">
+              <MappingFragment StoreEntitySet="THANHVIEN">
+                <ScalarProperty Name="IDTV" ColumnName="IDTV" />
+                <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="NgayThamGia" ColumnName="NgayThamGia" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="YEUTHICHes">
+            <EntityTypeMapping TypeName="Demo_Lab5Model.YEUTHICH">
+              <MappingFragment StoreEntitySet="YEUTHICH">
+                <ScalarProperty Name="IDYT" ColumnName="IDYT" />
+                <ScalarProperty Name="IDTV" ColumnName="IDTV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
